@@ -26,9 +26,9 @@ class _MainPageState extends State<SecondScreen>{
   void initState() {
     // TODO: implement initState
     super.initState();
-    _pages.add(FragmentLeft());
+    _pages.add(LeftScreen());
     _pages.add(CenterScreen());
-    _pages.add(FragmentRight());
+    _pages.add(RightScreen());
     _controller = PageController(initialPage: 0);
   }
 
@@ -42,7 +42,7 @@ class _MainPageState extends State<SecondScreen>{
     return PageView.builder(
       controller: _controller,
       itemCount: _pages.length,
-      physics: NeverScrollableScrollPhysics(),
+      physics: ScrollPhysics(),
       itemBuilder: (context, index) {
         return _pages[index];
       },
