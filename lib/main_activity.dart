@@ -47,6 +47,7 @@ class _MainPageState extends State<SecondScreen>{
         return _pages[index];
       },
       onPageChanged: (index) {
+        // ignore: unrelated_type_equality_checks
         if (index != _controller) {
           setState(() {
             _currentIndex = index;
@@ -85,6 +86,10 @@ class _MainPageState extends State<SecondScreen>{
     return Scaffold(
       appBar: AppBar(
         title: Text("Shaft"),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.menu),onPressed: (){},),
+          IconButton(icon: Icon(Icons.add),onPressed: (){},)
+        ],
       ),
       body: _buildBodyWidget(),
       bottomNavigationBar: _buildBottomNavigationBarWidget(),

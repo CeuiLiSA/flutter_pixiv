@@ -12,7 +12,7 @@ class FragmentCenter extends State<CenterScreen> with AutomaticKeepAliveClientMi
             itemBuilder: (context, index)
             {
               return ListTile(
-                title: Text("我是第${index}条数据，哈哈哈哈哈哈"),
+                title: Text("我是第$index条数据，哈哈哈哈哈哈"),
               );
             }));
   }

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutterpixiv/Cache.dart';
 import 'package:flutterpixiv/Common.dart';
-import 'package:flutterpixiv/right.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'center.dart';
-import 'left.dart';
 import 'main_activity.dart';
 
 void main() {
@@ -38,7 +37,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-
   MyHomePage({Key key, this.title}) : super(key: key);
 
   final String title;
@@ -48,8 +46,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-
   TextEditingController name = TextEditingController();
   TextEditingController pwd = TextEditingController();
 
@@ -65,16 +61,22 @@ class _MyHomePageState extends State<MyHomePage> {
       return;
     }
 
+
     login(name.text, pwd.text);
   }
 
-  void login(String name, String pwd) {
-    Navigator.push( //跳转到第二个界面
+
+  Future<void> login(String name, String pwd) async {
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(Cache.user, name + " " + pwd);
+
+    Navigator.push(
+      //跳转到第二个界面
       context,
       MaterialPageRoute(builder: (context) => SecondScreen()),
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -85,81 +87,115 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Stack(
-          children: <Widget>[
-            Center(
-              // Center is a layout widget. It takes a single child and positions it
-              // in the middle of the parent.
-              child: Column(
-                // Column is also a layout widget. It takes a list of children and
-                // arranges them vertically. By default, it sizes itself to fit its
-                // children horizontally, and tries to be as tall as its parent.
-                //
-                // Invoke "debug painting" (press "p" in the console, choose the
-                // "Toggle Debug Paint" action from the Flutter Inspector in Android
-                // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-                // to see the wireframe for each widget.
-                //
-                // Column has various properties to control how it sizes itself and
-                // how it positions its children. Here we use mainAxisAlignment to
-                // center the children vertically; the main axis here is the vertical
-                // axis because Columns are vertical (the cross axis would be
-                // horizontal).
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                      width: 240,
-                      child: TextField(
-                        controller: name,
-                        decoration: InputDecoration(
-                          hintText: '用户名',
-                        ),
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                        textAlign: TextAlign.start,
-                      )),
-                  Container(
-                      padding: EdgeInsets.only(bottom: 50),
-                      width: 240,
-                      child: TextField(
-                        controller: pwd,
-                        decoration: InputDecoration(hintText: '密码'),
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                        textAlign: TextAlign.start,
-                      )),
-                  MaterialButton(
-                    minWidth: 240,
-                    color: Colors.blue,
-                    textColor: Colors.white,
-                    child: new Text('登录'),
-                    onPressed: () {
-                      judge();
-                    },
+      backgroundColor: Colors.blue,
+      body: Stack(children: <Widget>[
+        Align(
+          alignment: Alignment.center,
+          child: SizedBox(
+              height: 360,
+              child: Stack(children: <Widget>[
+                Align(
+                  child: Card(
+                    // Center is a layout widget. It takes a single child and positions it
+                    // in the middle of the parent.
+                    elevation: 16.0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(6.0)),),
+                    child: Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Column(
+                        // Column is also a layout widget. It takes a list of children and
+                        // arranges them vertically. By default, it sizes itself to fit its
+                        // children horizontally, and tries to be as tall as its parent.
+                        //
+                        // Invoke "debug painting" (press "p" in the console, choose the
+                        // "Toggle Debug Paint" action from the Flutter Inspector in Android
+                        // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
+                        // to see the wireframe for each widget.
+                        //
+                        // Column has various properties to control how it sizes itself and
+                        // how it positions its children. Here we use mainAxisAlignment to
+                        // center the children vertically; the main axis here is the vertical
+                        // axis because Columns are vertical (the cross axis would be
+                        // horizontal).
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                              width: 230,
+                              child: TextField(
+                                controller: name,
+                                decoration: InputDecoration(
+                                  hintText: '用户名/邮箱账号',
+                                ),
+                                style: TextStyle(
+                                ),
+                                textAlign: TextAlign.start,
+                              )),
+                          Container(
+                              padding: EdgeInsets.only(bottom: 50),
+                              width: 230,
+                              child: TextField(
+                                controller: pwd,
+                                decoration: InputDecoration(hintText: '密码'),
+                                style: TextStyle(
+                                ),
+                                textAlign: TextAlign.start,
+                              )),
+                          MaterialButton(
+                            elevation: 8,
+                            minWidth: 230,
+                            color: Colors.blue,
+                            textColor: Colors.white,
+                            child: new Text(
+                              "登录",
+                            ),
+                            onPressed: () {
+                              judge();
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ],
-              ),
-            ),
-
-            Align(
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                child: Text(
-                    "关于软件",
-                  style: TextStyle(color: Colors.blue),
                 ),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: EdgeInsets.all(20),
+                    child: Text(
+                      "Shaft(测试版)",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 16),
+                    child: Text(
+                      "没有账号？",
+                      style: TextStyle(
+                          color: Colors.blue
+                      ),
+                    ),
+                  )
+                )
+              ])),
+        ),
+        Align(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+            child: Text(
+              "使用条款",
+              style: TextStyle(color: Colors.white),
             ),
-              alignment: Alignment.bottomCenter,
-            )
-          ]
-      ),
+          ),
+          alignment: Alignment.bottomCenter,
+        )
+      ]),
     );
   }
 }
