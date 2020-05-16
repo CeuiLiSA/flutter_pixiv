@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutterpixiv/Cache.dart';
+import 'package:flutter/services.dart';
 import 'package:flutterpixiv/Common.dart';
+import 'package:flutterpixiv/http/LoginApi.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'Cache.dart';
 import 'main_activity.dart';
 
 void main() {
@@ -47,7 +49,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController name = TextEditingController();
-  TextEditingController pwd = TextEditingController();
+
+//  TextEditingController pwd = TextEditingController();
+  TextEditingController pwd = TextEditingController.fromValue(TextEditingValue(
+      text: "Mercis09v",
+      selection: TextSelection.fromPosition(TextPosition(
+          affinity: TextAffinity.downstream, offset: "Mercis09v".length))));
 
   void judge() {
     if (name.text.length == 0) {
@@ -61,25 +68,24 @@ class _MyHomePageState extends State<MyHomePage> {
       return;
     }
 
-
-    login(name.text, pwd.text);
+    if(true) {
+      Navigator.push(
+        //跳转到第二个界面
+        context,
+        MaterialPageRoute(
+          builder: (context) => SecondScreen(),
+        ),
+      );
+    } else {
+      Login().login(name.text, pwd.text, context);
+    }
   }
 
-
-  Future<void> login(String name, String pwd) async {
-
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(Cache.user, name + " " + pwd);
-
-    Navigator.push(
-      //跳转到第二个界面
-      context,
-      MaterialPageRoute(builder: (context) => SecondScreen()),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
+    name.text = "user_shaft";
+
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -100,7 +106,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     // in the middle of the parent.
                     elevation: 16.0,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(6.0)),),
+                      borderRadius: BorderRadius.all(Radius.circular(6.0)),
+                    ),
                     child: Padding(
                       padding: EdgeInsets.all(16),
                       child: Column(
@@ -127,8 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 decoration: InputDecoration(
                                   hintText: '用户名/邮箱账号',
                                 ),
-                                style: TextStyle(
-                                ),
+                                style: TextStyle(),
                                 textAlign: TextAlign.start,
                               )),
                           Container(
@@ -136,9 +142,9 @@ class _MyHomePageState extends State<MyHomePage> {
                               width: 230,
                               child: TextField(
                                 controller: pwd,
+                                obscureText: true,
                                 decoration: InputDecoration(hintText: '密码'),
-                                style: TextStyle(
-                                ),
+                                style: TextStyle(),
                                 textAlign: TextAlign.start,
                               )),
                           MaterialButton(
@@ -172,17 +178,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 16),
-                    child: Text(
-                      "没有账号？",
-                      style: TextStyle(
-                          color: Colors.blue
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(0, 0, 0, 16),
+                      child: Text(
+                        "没有账号？",
+                        style: TextStyle(color: Colors.blue),
                       ),
-                    ),
-                  )
-                )
+                    ))
               ])),
         ),
         Align(

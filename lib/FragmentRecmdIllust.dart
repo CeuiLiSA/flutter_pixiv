@@ -1,57 +1,21 @@
+import 'dart:ffi';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:flutterpixiv/Cache.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutterpixiv/Common.dart';
+import 'package:flutterpixiv/models/Illust.dart';
 
+import 'FragmentSingleIllust.dart';
 
-class FragmentLeft extends State<LeftScreen> with AutomaticKeepAliveClientMixin  {
-
+class FragmentRecmdIllust extends State<RecmdIllust>
+    with AutomaticKeepAliveClientMixin {
   final List<String> urls = new List();
-
-
-
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    return new StaggeredGridView.countBuilder(
-      padding: const EdgeInsets.all(8.0),
-      crossAxisCount: 4,
-      itemCount: urls.length,
-      itemBuilder: (context, i) {
-        String imgPath = urls[i];
-        return new Material(
-          elevation: 8.0,
-          borderRadius: new BorderRadius.all(
-            new Radius.circular(8.0),
-          ),
-          child: new Hero(
-            tag: imgPath,
-            child: CachedNetworkImage(
-              imageUrl: imgPath,
-              fit: BoxFit.fitWidth,
-              placeholder: (context, url) =>
-                  Image.asset('assets/wallfy.png'),
-            ),
-          ),
-        );
-      },
-      staggeredTileBuilder: (index) => new StaggeredTile.fit(2),
-      mainAxisSpacing: 8.0,
-      crossAxisSpacing: 8.0,
-    );
-  }
-
-  @override
-  bool get wantKeepAlive => true;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
     urls.add("https://pixiv.cat/53496279.jpg");
     urls.add("https://pixiv.cat/57350017.jpg");
     urls.add("https://pixiv.cat/14184347.jpg");
@@ -172,58 +136,62 @@ class FragmentLeft extends State<LeftScreen> with AutomaticKeepAliveClientMixin 
     urls.add("https://pixiv.cat/35902979.jpg");
     urls.add("https://pixiv.cat/42208869.jpg");
     urls.add("https://pixiv.cat/38566067.jpg");
-
-    show();
   }
 
-
-  show() async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String abc = prefs.getString(Cache.user);
-    print("user info " + abc);
-  }
-
-
-
-
-  void postRequest() async {
-
-//    var client = http.Client();
-//    http.Response response = await client.get("http://yxgtest.bangjia.me/Api/Index/login2/?password=c33367701511b4f6020ec61ded352059&flag=android&mobile=15026844205&imei=06b45d42-3fef-4376-9981-110be6cea92f&apkversion=1.1.13");
-//    var _content = response.body;
-//
-//
-//
-//    Map<String, dynamic> news1 = jsonDecode(_content);
-//    //转为实体类
-//    UserModel userModel = UserModel.fromJson(news1);
-//
-//
-//    print(userModel.element.username);
-
-
-
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            actions: <Widget>[
-              new FlatButton(
-                child: new Text('确定'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return RefreshIndicator(
+      onRefresh: please,
+        color: Colors.blue,
+        child: StaggeredGridView.countBuilder(
+          padding: const EdgeInsets.all(8.0),
+          crossAxisCount: 4,
+          itemCount: urls.length,
+          itemBuilder: (context, i) {
+            String imgPath = urls[i];
+            return GestureDetector(
+              child: CachedNetworkImage(
+                imageUrl: imgPath,
+                fit: BoxFit.fitWidth,
               ),
-            ],
-          );
-        }
+              onTap: () {
+                Illust temp = Illust();
+                temp.title = urls[i];
+
+                Navigator.push(
+                  //跳转到第二个界面
+                  context,
+                  MaterialPageRoute(builder: (context) =>
+                      SingleIllust(),
+                    settings: RouteSettings(
+                      arguments: temp
+                    )
+
+                  ),
+                );
+              },
+            );
+          },
+          staggeredTileBuilder: (index) => new StaggeredTile.fit(2),
+          mainAxisSpacing:4.0,
+          crossAxisSpacing: 4.0,
+        )
     );
+  }
+
+  @override
+  bool get wantKeepAlive => true;
+
+  Future<Void> please() {
+    Common.toast('开始刷新');
+    return Future<Void>(null);
   }
 }
 
-
-class LeftScreen extends StatefulWidget {
-
+class RecmdIllust extends StatefulWidget {
   @override
-  FragmentLeft createState() => FragmentLeft();
+  FragmentRecmdIllust createState() {
+    return FragmentRecmdIllust();
+  }
 }

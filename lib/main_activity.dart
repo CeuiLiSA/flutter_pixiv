@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterpixiv/right.dart';
 
-import 'center.dart';
-import 'left.dart';
+import 'FragmentCenter.dart';
+import 'FragmentLeft.dart';
 
 class SecondScreen extends StatefulWidget {
 
@@ -84,46 +84,8 @@ class _MainPageState extends State<SecondScreen>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Shaft"),
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.menu),onPressed: (){},),
-          IconButton(icon: Icon(Icons.add),onPressed: (){},)
-        ],
-      ),
       body: _buildBodyWidget(),
       bottomNavigationBar: _buildBottomNavigationBarWidget(),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: const <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text(
-                'Drawer Header',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.message),
-              title: Text('Messages'),
-            ),
-            ListTile(
-              leading: Icon(Icons.account_circle),
-              title: Text('Profile'),
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
