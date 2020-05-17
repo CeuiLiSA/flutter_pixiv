@@ -35,8 +35,7 @@ dependencies:
   shared_preferences: ^0.5.3+1
   intl: ^0.16.1
   crypto: ^2.1.4
-  gson: ^0.1.4
-
+  flutter_printer: ^1.0.3+1
 
 dev_dependencies:
   flutter_test:

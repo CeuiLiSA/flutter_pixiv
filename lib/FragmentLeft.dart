@@ -8,7 +8,6 @@ import 'package:flutterpixiv/FragmentRecmdIllust.dart';
 import 'package:flutterpixiv/base/BaseState.dart';
 import 'package:flutterpixiv/models/UserModel.dart';
 import 'package:flutterpixiv/right.dart';
-import 'package:gson/gson.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'http/AppApi.dart';

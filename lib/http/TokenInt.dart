@@ -10,7 +10,6 @@ class TokenInt with Interceptor{
   @override
   Future onError(DioError err) async {
     String errorString = err.response.data.toString();
-    print("TokenInt onError " + errorString);
     if(err.response.statusCode == 400 && errorString.contains(token_error)) {
 
       String newToken = await Login().getNewToken();
@@ -32,14 +31,12 @@ class TokenInt with Interceptor{
 
   @override
   Future onRequest(RequestOptions options) {
-    print("TokenInt onRequest");
     return super.onRequest(options);
   }
 
 
   @override
   Future onResponse(Response response) {
-    print("TokenInt onResponse");
     return super.onResponse(response);
   }
 }
