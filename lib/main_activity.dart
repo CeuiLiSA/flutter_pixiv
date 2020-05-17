@@ -1,9 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterpixiv/right.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'tools/Cache.dart';
 import 'FragmentCenter.dart';
 import 'FragmentLeft.dart';
+import 'models/UserModel.dart';
 
 class SecondScreen extends StatefulWidget {
 

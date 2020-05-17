@@ -1,21 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutterpixiv/models/UserModel.dart';
+import 'package:flutterpixiv/tools/Cache.dart';
 
 abstract class StateWithUser<T extends StatefulWidget> extends State<T>{
 
   UserModel userModel;
 
   StateWithUser(){
-    print("time StateWithUser 构造函数");
-  }
-
-  updateUser(UserModel user){
-    print("time StateWithUser 更新用户");
-    userModel = user;
-    userPrepare();
+    Future<UserModel> temp = Cache.getUser();
+    temp.then((value) {
+      userModel = value;
+      userPrepare();
+    });
   }
 
   void userPrepare(){
-    print("time StateWithUser userPrepare");
   }
 }

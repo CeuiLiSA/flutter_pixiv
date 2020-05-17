@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterpixiv/Cache.dart';
+import 'file:///C:/Users/Mercis/Documents/GitHub/flutter_pixiv/lib/tools/Cache.dart';
 import 'package:flutterpixiv/FragmentRecmdIllust.dart';
 import 'package:flutterpixiv/base/BaseState.dart';
 import 'package:flutterpixiv/models/UserModel.dart';
@@ -11,7 +11,6 @@ import 'package:flutterpixiv/right.dart';
 import 'package:gson/gson.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'base/BaseWidget.dart';
 import 'http/AppApi.dart';
 
 class Choice {
@@ -93,7 +92,6 @@ class FragmentLeft extends StateWithUser<LeftScreen> with AutomaticKeepAliveClie
 
   @override
   userPrepare() {
-    new Manager();
     print("time FragmentLeft userPrepare");
   }
 
@@ -109,11 +107,10 @@ class FragmentLeft extends StateWithUser<LeftScreen> with AutomaticKeepAliveClie
 }
 
 
-class LeftScreen extends StatefulWidgetWithUser {
-
+class LeftScreen extends StatefulWidget {
 
   @override
-  State<StatefulWidget> create() {
+  State<StatefulWidget> createState() {
     return FragmentLeft();
   }
 }

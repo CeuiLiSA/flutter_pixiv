@@ -4,7 +4,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterpixiv/base/BaseWidget.dart';
 
 import 'base/BaseState.dart';
 import 'models/Illust.dart';
@@ -54,10 +53,10 @@ class FragmentSingleIllust extends StateWithUser<SingleIllust> with AutomaticKee
 }
 
 
-class SingleIllust extends StatefulWidgetWithUser {
+class SingleIllust extends StatefulWidget {
 
   @override
-  State<StatefulWidget> create() {
+  State<StatefulWidget> createState() {
     return FragmentSingleIllust();
   }
 }

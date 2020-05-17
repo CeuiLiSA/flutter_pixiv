@@ -4,7 +4,7 @@ import 'package:flutterpixiv/Common.dart';
 import 'package:flutterpixiv/http/LoginApi.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'Cache.dart';
+import 'tools/Cache.dart';
 import 'main_activity.dart';
 
 void main() {

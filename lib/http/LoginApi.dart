@@ -7,7 +7,7 @@ import 'package:flutterpixiv/http/JsonUtil.dart';
 import 'package:flutterpixiv/models/UserModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../Cache.dart';
+import '../tools/Cache.dart';
 import '../main_activity.dart';
 import 'PixivHeader.dart';
 
@@ -58,7 +58,6 @@ class Login{
       "username": name,
     });
     var response = await dio.post(ACCOUNT_BASE_URL + "/auth/token", data: formData);
-    JsonUtil.printRespond(response);
     String temp = response.data.toString();
 
 
@@ -91,6 +90,7 @@ class Login{
 
     Dio dio = Dio(options);
 
+    //耗时操作，await顺序执行
     SharedPreferences pref = await SharedPreferences.getInstance();
     String userJson = pref.getString(Cache.user);
     Map<String, dynamic> map = json.decode(userJson);
@@ -106,8 +106,8 @@ class Login{
       "get_secure_url": true,
       "include_policy": true,
     });
+    //耗时操作，await顺序执行
     var response = await dio.post(ACCOUNT_BASE_URL + "/auth/token", data: formData);
-    JsonUtil.printRespond(response);
 
     String temp = response.data.toString();
 

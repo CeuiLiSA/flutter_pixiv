@@ -3,14 +3,15 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterpixiv/base/BaseState.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'Cache.dart';
+import 'tools/Cache.dart';
 import 'http/AppApi.dart';
 import 'http/JsonUtil.dart';
 import 'models/UserModel.dart';
 
-class FragmentRight extends State<RightScreen> with AutomaticKeepAliveClientMixin {
+class FragmentRight extends StateWithUser<RightScreen> with AutomaticKeepAliveClientMixin {
 
   List<Shadow> shadowList = new List();
 
@@ -22,19 +23,13 @@ class FragmentRight extends State<RightScreen> with AutomaticKeepAliveClientMixi
         color: Colors.black45,
         //模糊程度
         blurRadius: 3.0));
-    getTags();
     return new GridView.extent(
         maxCrossAxisExtent: 150.0,
         padding: const EdgeInsets.all(0.0),
         mainAxisSpacing: 2.0,
         crossAxisSpacing: 2.0,
         children: _buildGridTileList(30));
-
-
   }
-
-
-
 
   List<Container> _buildGridTileList(int count) {
     return new List<Container>.generate(
@@ -66,12 +61,8 @@ class FragmentRight extends State<RightScreen> with AutomaticKeepAliveClientMixi
         ));
   }
 
-  getTags() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    String userJson = pref.getString(Cache.user);
-    Map<String, dynamic> map = json.decode(userJson);
-    UserModel userModel = UserModel.fromJson(map);
-
+  @override
+  void userPrepare() {
     AppApi.getHotTags(userModel.response.accessToken).then((value) {
 
       JsonUtil.printRespond(value);
@@ -87,6 +78,7 @@ class FragmentRight extends State<RightScreen> with AutomaticKeepAliveClientMixi
 class RightScreen extends StatefulWidget {
 
   @override
-  FragmentRight createState() => FragmentRight();
-
+  State<StatefulWidget> createState() {
+    return FragmentRight();
+  }
 }
