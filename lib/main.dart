@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
       return;
     }
 
-    if(true) {
+    if(isLogin) {
       Navigator.push(
         //跳转到第二个界面
         context,
