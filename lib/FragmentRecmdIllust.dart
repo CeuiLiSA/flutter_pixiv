@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutterpixiv/Common.dart';
-import 'package:flutterpixiv/models/Illust.dart';
 
 import 'FragmentSingleIllust.dart';
 
@@ -156,8 +155,6 @@ class FragmentRecmdIllust extends State<RecmdIllust>
                 fit: BoxFit.fitWidth,
               ),
               onTap: () {
-                Illust temp = Illust();
-                temp.title = urls[i];
 
                 Navigator.push(
                   //跳转到第二个界面
@@ -165,7 +162,7 @@ class FragmentRecmdIllust extends State<RecmdIllust>
                   MaterialPageRoute(builder: (context) =>
                       SingleIllust(),
                     settings: RouteSettings(
-                      arguments: temp
+                      arguments: "123456"
                     )
 
                   ),

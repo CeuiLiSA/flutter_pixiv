@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterpixiv/right.dart';
+import 'package:flutterpixiv/ui/recmd.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'tools/Cache.dart';
@@ -33,7 +34,7 @@ class _MainPageState extends State<SecondScreen>{
     super.initState();
     _pages.add(LeftScreen());
     _pages.add(CenterScreen());
-    _pages.add(RightScreen());
+    _pages.add(RecmdUser());
     _controller = PageController(initialPage: 0);
   }
 

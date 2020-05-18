@@ -13,4 +13,9 @@ class Common{
         textColor: Colors.white
     );
   }
+
+  static void log(Object object){
+    print(object);
+  }
+
 }

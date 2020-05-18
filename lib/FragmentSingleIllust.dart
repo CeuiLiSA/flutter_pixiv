@@ -1,23 +1,18 @@
-
-
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'base/BaseState.dart';
-import 'models/Illust.dart';
 
 class FragmentSingleIllust extends StateWithUser<SingleIllust> with AutomaticKeepAliveClientMixin{
 
-  Illust illust;
   String titleString = "";
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
 
-    illust = ModalRoute.of(context).settings.arguments;
+    String illust = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
       appBar: AppBar(
@@ -30,7 +25,7 @@ class FragmentSingleIllust extends StateWithUser<SingleIllust> with AutomaticKee
             color: Colors.white,
             elevation: 20,
             child: CachedNetworkImage(
-              imageUrl: illust.title,
+              imageUrl: illust,
               fit: BoxFit.fitWidth,
             ),
           )

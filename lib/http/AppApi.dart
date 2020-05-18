@@ -18,10 +18,24 @@ class AppApi {
     };
     return manager._dio.get("v1/trending-tags/illust?filter=for_android&include_translated_tag_results=true");
   }
+
+
+  static Future<Response> getRecmdUser(String token){
+    Manager manager = Manager.instance;
+    PixivHeader header = PixivHeader();
+    manager._dio.options.headers = {
+      "User-Agent": "PixivAndroidApp/5.0.175 (Android 6.0.1; D6653)",
+      "Accept-Language": "zh_CN",
+      "X-Client-Time": header.XClientTime,
+      "X-Client-Hash": header.XClientHash,
+      "Authorization": "Bearer " + token,
+    };
+    return manager._dio.get("v1/user/recommended?filter=for_android");
+  }
 }
 
 class Manager {
-  // 工厂模式
+
   factory Manager() => _getInstance();
 
   String API_BASE_URL = "https://app-api.pixiv.net/";
@@ -40,9 +54,7 @@ class Manager {
 
     BaseOptions options = BaseOptions(
         baseUrl: API_BASE_URL,
-        connectTimeout: 1500,
         responseType: ResponseType.plain,
-        receiveTimeout: 1500,
     );
 
     _dio = Dio(options);

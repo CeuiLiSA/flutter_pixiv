@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_printer/flutter_printer.dart';
 import 'package:flutterpixiv/base/BaseState.dart';
-import 'package:flutterpixiv/tools/LogUtil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'tools/Cache.dart';
@@ -66,7 +65,7 @@ class FragmentRight extends StateWithUser<RightScreen> with AutomaticKeepAliveCl
   @override
   void userPrepare() {
     AppApi.getHotTags(userModel.response.accessToken).then((value) {
-
+      JsonUtil.printRespond(value);
     });
   }
 

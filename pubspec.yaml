@@ -36,6 +36,8 @@ dependencies:
   intl: ^0.16.1
   crypto: ^2.1.4
   flutter_printer: ^1.0.3+1
+  flutter_advanced_networkimage: ^0.7.0
+  flutter_spinkit: ^4.1.2
 
 dev_dependencies:
   flutter_test:

@@ -33,9 +33,7 @@ class Login{
     PixivHeader header = PixivHeader();
     BaseOptions options = BaseOptions(
       baseUrl: ACCOUNT_BASE_URL,
-      connectTimeout: 1500,
         responseType: ResponseType.plain,
-        receiveTimeout: 1500,
       headers: {
         "User-Agent": "PixivAndroidApp/5.0.175 (Android 6.0.1; D6653)",
         "Accept-Language": "zh_CN",
@@ -58,6 +56,7 @@ class Login{
       "username": name,
     });
     var response = await dio.post(ACCOUNT_BASE_URL + "/auth/token", data: formData);
+    JsonUtil.printRespond(response);
     String temp = response.data.toString();
 
 
@@ -77,9 +76,7 @@ class Login{
     PixivHeader header = PixivHeader();
     BaseOptions options = BaseOptions(
         baseUrl: ACCOUNT_BASE_URL,
-        connectTimeout: 1500,
         responseType: ResponseType.plain,
-        receiveTimeout: 1500,
         headers: {
           "User-Agent": "PixivAndroidApp/5.0.175 (Android 6.0.1; D6653)",
           "Accept-Language": "zh_CN",
@@ -108,6 +105,7 @@ class Login{
     });
     //耗时操作，await顺序执行
     var response = await dio.post(ACCOUNT_BASE_URL + "/auth/token", data: formData);
+    JsonUtil.printRespond(response);
 
     String temp = response.data.toString();
 
@@ -119,12 +117,3 @@ class Login{
     return "Bearer " + newUser.response.accessToken;
   }
 }
-
-//Response response = await new Dio().get("http://fatest.bangjia.me/thinkapi.php/Api/Index/login2/"
-//"?password=e10adc3949ba59abbe56e057f20f883e&flag=android&"
-//"mobile=ylc0002&imei=1731b9f7-3a09-45ad-bb13-5374c315511c"
-//"&apkversion=1.1.16");
-//
-//JsonUtil.printRespond(response);
-//String temp = response.data.toString();
-//debugPrint(temp);

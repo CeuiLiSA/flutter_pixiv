@@ -31,12 +31,12 @@ class Response {
 
   Response(
       {this.accessToken,
-        this.expiresIn,
-        this.tokenType,
-        this.scope,
-        this.refreshToken,
-        this.user,
-        this.deviceToken});
+      this.expiresIn,
+      this.tokenType,
+      this.scope,
+      this.refreshToken,
+      this.user,
+      this.deviceToken});
 
   Response.fromJson(Map<String, dynamic> json) {
     accessToken = json['access_token'];

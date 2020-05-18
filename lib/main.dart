@@ -50,6 +50,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController name = TextEditingController();
 
+
+  bool isLogin = false;
+
 //  TextEditingController pwd = TextEditingController();
   TextEditingController pwd = TextEditingController.fromValue(TextEditingValue(
       text: "Mercis09v",
@@ -79,6 +82,16 @@ class _MyHomePageState extends State<MyHomePage> {
     } else {
       Login().login(name.text, pwd.text, context);
     }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    Cache.getUser().then((value) {
+      isLogin = value != null ? true : false;
+    });
   }
 
 

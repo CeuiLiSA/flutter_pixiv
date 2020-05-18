@@ -1,5 +1,0 @@
-
-class Illust{
-
-  String title;
-}

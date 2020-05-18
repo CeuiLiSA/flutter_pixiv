@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/Mercis/Documents/GitHub/flutter_pixiv/lib/tools/Cache.dart';
 import 'package:flutterpixiv/FragmentRecmdIllust.dart';
 import 'package:flutterpixiv/base/BaseState.dart';
 import 'package:flutterpixiv/models/UserModel.dart';

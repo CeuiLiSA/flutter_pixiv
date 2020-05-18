@@ -25,28 +25,28 @@ class Illusts {
 
   Illusts(
       {this.id,
-        this.title,
-        this.type,
-        this.imageUrls,
-        this.caption,
-        this.restrict,
-        this.user,
-        this.tags,
-        this.tools,
-        this.createDate,
-        this.pageCount,
-        this.width,
-        this.height,
-        this.sanityLevel,
-        this.xRestrict,
-        this.series,
-        this.metaSinglePage,
-        this.metaPages,
-        this.totalView,
-        this.totalBookmarks,
-        this.isBookmarked,
-        this.visible,
-        this.isMuted});
+      this.title,
+      this.type,
+      this.imageUrls,
+      this.caption,
+      this.restrict,
+      this.user,
+      this.tags,
+      this.tools,
+      this.createDate,
+      this.pageCount,
+      this.width,
+      this.height,
+      this.sanityLevel,
+      this.xRestrict,
+      this.series,
+      this.metaSinglePage,
+      this.metaPages,
+      this.totalView,
+      this.totalBookmarks,
+      this.isBookmarked,
+      this.visible,
+      this.isMuted});
 
   Illusts.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -72,7 +72,7 @@ class Illusts {
     sanityLevel = json['sanity_level'];
     xRestrict = json['x_restrict'];
     series =
-    json['series'] != null ? new Series.fromJson(json['series']) : null;
+        json['series'] != null ? new Series.fromJson(json['series']) : null;
     metaSinglePage = json['meta_single_page'] != null
         ? new MetaSinglePage.fromJson(json['meta_single_page'])
         : null;
@@ -130,7 +130,6 @@ class Illusts {
   }
 }
 
-
 class ImageUrls {
   String squareMedium;
   String medium;
@@ -156,7 +155,6 @@ class ImageUrls {
   }
 }
 
-
 class User {
   int id;
   String name;
@@ -166,13 +164,17 @@ class User {
 
   User(
       {this.id,
-        this.name,
-        this.account,
-        this.profileImageUrls,
-        this.isFollowed});
+      this.name,
+      this.account,
+      this.profileImageUrls,
+      this.isFollowed});
 
   User.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    if(json['id'] is String) {
+      id = int.parse(json['id']);
+    } else {
+      id = json['id'];
+    }
     name = json['name'];
     account = json['account'];
     profileImageUrls = json['profile_image_urls'] != null
@@ -232,7 +234,6 @@ class Tags {
   }
 }
 
-
 class Series {
   int id;
   String title;
@@ -251,7 +252,6 @@ class Series {
     return data;
   }
 }
-
 
 class MetaPages {
   ImageUrls imageUrls;
@@ -289,7 +289,6 @@ class MetaSinglePage {
   }
 }
 
-
 class Novels {
   int id;
   String title;
@@ -315,26 +314,26 @@ class Novels {
 
   Novels(
       {this.id,
-        this.title,
-        this.caption,
-        this.restrict,
-        this.xRestrict,
-        this.isOriginal,
-        this.imageUrls,
-        this.createDate,
-        this.tags,
-        this.pageCount,
-        this.textLength,
-        this.user,
-        this.series,
-        this.isBookmarked,
-        this.totalBookmarks,
-        this.totalView,
-        this.visible,
-        this.totalComments,
-        this.isMuted,
-        this.isMypixivOnly,
-        this.isXRestricted});
+      this.title,
+      this.caption,
+      this.restrict,
+      this.xRestrict,
+      this.isOriginal,
+      this.imageUrls,
+      this.createDate,
+      this.tags,
+      this.pageCount,
+      this.textLength,
+      this.user,
+      this.series,
+      this.isBookmarked,
+      this.totalBookmarks,
+      this.totalView,
+      this.visible,
+      this.totalComments,
+      this.isMuted,
+      this.isMypixivOnly,
+      this.isXRestricted});
 
   Novels.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -357,7 +356,7 @@ class Novels {
     textLength = json['text_length'];
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
     series =
-    json['series'] != null ? new Series.fromJson(json['series']) : null;
+        json['series'] != null ? new Series.fromJson(json['series']) : null;
     isBookmarked = json['is_bookmarked'];
     totalBookmarks = json['total_bookmarks'];
     totalView = json['total_view'];
@@ -403,7 +402,6 @@ class Novels {
   }
 }
 
-
 class UserPreviews {
   User user;
   List<Illusts> illusts;
@@ -445,7 +443,6 @@ class UserPreviews {
   }
 }
 
-
 class TrendTags {
   String tag;
   String translatedName;
@@ -457,7 +454,7 @@ class TrendTags {
     tag = json['tag'];
     translatedName = json['translated_name'];
     illust =
-    json['illust'] != null ? new Illusts.fromJson(json['illust']) : null;
+        json['illust'] != null ? new Illusts.fromJson(json['illust']) : null;
   }
 
   Map<String, dynamic> toJson() {
