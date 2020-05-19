@@ -32,9 +32,7 @@ class FragmentLeft extends StateWithUser<LeftScreen> with AutomaticKeepAliveClie
 
   @override
   Widget build(BuildContext context) {
-    print("time FragmentLeft build 111");
     super.build(context);
-    print("time FragmentLeft build 222");
     return DefaultTabController(
         length: choices.length,
       child: Scaffold(
@@ -86,11 +84,6 @@ class FragmentLeft extends StateWithUser<LeftScreen> with AutomaticKeepAliveClie
       ),
     );
 
-  }
-
-  @override
-  userPrepare() {
-    print("time FragmentLeft userPrepare");
   }
 
   @override

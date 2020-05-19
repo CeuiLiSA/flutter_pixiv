@@ -1,54 +1,54 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutterpixiv/models/Beans.dart';
+import 'package:flutterpixiv/ui/img.dart';
 
 import 'base/BaseState.dart';
 
-class FragmentSingleIllust extends StateWithUser<SingleIllust> with AutomaticKeepAliveClientMixin{
-
-  String titleString = "";
-
+class FragmentSingleIllust extends StateWithUser<SingleIllust>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
-
-    String illust = ModalRoute.of(context).settings.arguments;
-
+    Illusts illust = widget.illusts;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(titleString),
-      ),
-      body: Column(
-        children: <Widget>[
-          Card(
-            margin: EdgeInsets.fromLTRB(12, 12, 12, 16),
-            color: Colors.white,
-            elevation: 20,
-            child: CachedNetworkImage(
-              imageUrl: illust,
-              fit: BoxFit.fitWidth,
-            ),
-          )
-        ],
-      ),
-    );
+        appBar: AppBar(
+          title: Text(illust.title),
+        ),
+        body: new CustomScrollView(shrinkWrap: true,
+            // 内容
+            slivers: <Widget>[
+              new SliverPadding(
+                padding: EdgeInsets.all(0.0),
+                sliver: new SliverList(
+                  delegate: new SliverChildListDelegate(
+                    <Widget>[
+                      Container(
+                        child: getLargeIllust(illust),
+                        margin: EdgeInsets.all(8),
+                      ),
+                      Container(
+                        child: getLargeIllust(illust),
+                        margin: EdgeInsets.all(8),
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ]));
   }
-
-  @override
-  void userPrepare() {
-    super.userPrepare();
-    setState(() {
-      titleString = userModel.response.user.account;
-    });
-  }
-
 
   @override
   bool get wantKeepAlive => true;
 }
 
-
 class SingleIllust extends StatefulWidget {
+  Illusts illusts;
+
+  SingleIllust(Illusts i) {
+    illusts = i;
+  }
 
   @override
   State<StatefulWidget> createState() {
